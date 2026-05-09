@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>田时宇 | 个人官网</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(170deg, #fafafa 0%, #f3f0ff 30%, #fef9f0 70%, #f0f7f4 100%);
+    color: #2d2d3f;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== scroll reveal ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== layout ===== */
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 72px 0;
+  }
+  section + section {
+    border-top: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #1a1a2e;
+    margin-bottom: 36px;
+    text-align: center;
+    position: relative;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: linear-gradient(90deg, #b39ddb, #f48fb1);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ===== hero ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+  }
+
+  .hero-inner {
+    max-width: 480px;
+  }
+
+  .avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    border: 3px solid rgba(255,255,255,0.8);
+    margin-bottom: 24px;
+    transition: transform 0.4s ease;
+  }
+  .avatar:hover {
+    transform: scale(1.04);
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+  }
+
+  .hero .badge {
+    font-size: 15px;
+    color: #7c4dff;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
+
+  .hero .motto {
+    font-size: 15px;
+    color: #8888a0;
+    letter-spacing: 2px;
+    line-height: 1.8;
+    font-style: italic;
+    padding: 16px 24px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #bbb;
+    letter-spacing: 3px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ===== about ===== */
+  .about-card {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 36px 32px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+  }
+
+  .about-card p {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 14px;
+  }
+  .about-card p:last-child { margin-bottom: 0; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .tag {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(124,77,255,0.07);
+    color: #7c4dff;
+    letter-spacing: 1px;
+  }
+
+  /* ===== honors ===== */
+  .honor-group {
+    margin-bottom: 32px;
+  }
+  .honor-group:last-child { margin-bottom: 0; }
+
+  .honor-group .group-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #7c4dff;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    padding-left: 4px;
+  }
+
+  .honor-list {
+    list-style: none;
+  }
+  .honor-list li {
+    position: relative;
+    font-size: 14px;
+    color: #555;
+    padding: 10px 0 10px 22px;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    transition: background 0.2s;
+    border-radius: 8px;
+  }
+  .honor-list li:last-child { border-bottom: none; }
+  .honor-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #b39ddb;
+  }
+  .honor-list li:hover {
+    background: rgba(124,77,255,0.03);
+  }
+
+  .honor-card {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+  }
+
+  /* ===== skills ===== */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .skill-item {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 16px 18px;
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .skill-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  }
+  .skill-item .icon { font-size: 22px; display: block; margin-bottom: 6px; }
+
+  /* ===== contact ===== */
+  .contact-card {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 36px 32px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.03);
+  }
+  .contact-card p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 6px;
+  }
+  .contact-card .contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
+    padding: 8px 0;
+  }
+
+  /* ===== footer ===== */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 12px;
+    color: #bbb;
+    letter-spacing: 2px;
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 26px; }
+    .about-card, .honor-card, .contact-card { padding: 24px 18px; }
+    .honor-list li { font-size: 13px; padding: 9px 0 9px 18px; }
+    .skill-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <img
+      src="file:///D:/a3田时宇个人信息/美式证件照/美式证件照.png"
+      alt="田时宇"
+      class="avatar"
+      onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22130%22 height=%22130%22 viewBox=%220 0 130 130%22%3E%3Crect fill=%22%23f0e6ff%22 width=%22130%22 height=%22130%22 rx=%2265%22/%3E%3Ctext x=%2265%22 y=%2276%22 text-anchor=%22middle%22 font-size=%2242%22 fill=%22%237c4dff%22 font-family=%22sans-serif%22%3E田%3C/text%3E%3C/svg%3E'"
+    >
+    <h1 class="reveal">田时宇</h1>
+    <div class="badge reveal">🏫 在校大学生 · 竞赛追梦人</div>
+    <div class="motto reveal">
+      "追风赶月莫停留，平无尽处是春山"
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<div class="container">
+  <!-- ========== ABOUT ========== -->
+  <section id="about">
+    <h2 class="section-title reveal">关于我</h2>
+    <div class="about-card reveal">
+      <p>你好呀，我是田时宇，一名阳光开朗的在校大学生。</p>
+      <p>热爱挑战，享受在竞赛中不断突破自我的感觉；也喜欢羽毛球场上挥洒汗水的酣畅淋漓。相信努力的人运气不会太差，始终保持着对世界的好奇与热情。</p>
+      <p>从创新创业大赛到社会实践，从读书分享会到羽毛球比赛，每一段经历都是成长路上闪亮的印记。希望能一直保持这份少年感，奔赴下一场山海 🚀</p>
+      <div class="tag-list">
+        <span class="tag">🏆 竞赛达人</span>
+        <span class="tag">🏸 羽毛球</span>
+        <span class="tag">💡 创新创业</span>
+        <span class="tag">📚 终身学习</span>
+        <span class="tag">🌻 阳光少年</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HONORS ========== -->
+  <section id="honors">
+    <h2 class="section-title reveal">个人荣誉</h2>
+
+    <div class="honor-card reveal">
+      <div class="honor-group">
+        <div class="group-label">🏅 2024–2025</div>
+        <ul class="honor-list">
+          <li>荣获全国高校商业精英挑战赛创新创业竞赛创业模拟赛道全国总决赛二等奖；</li>
+          <li>荣获第十二届"学创杯"全国大学生创业综合模拟大赛湖北省二等奖；</li>
+          <li>荣获第十五届全国大学生电子商务"创新、创意及创业"挑战赛校金奖；</li>
+          <li>荣获中国国际大学生创新大赛校赛一等奖；</li>
+          <li>主持省级大学生创新创业计划一项，参与一项；</li>
+          <li>荣获"挑战杯"全国大学生课外学术科技作品竞赛校级三等奖；</li>
+          <li>荣获中国大学生工程实践与创新能力大赛虚拟仿真赛道校赛二等奖；</li>
+          <li>荣获全国企业竞争模拟大赛竞赛校赛二等奖；</li>
+          <li>荣获2024年度学校"优秀学生工作者"；</li>
+          <li>荣获校团委"红书映初心，砥砺续华章"红色读书笔记分享会一等奖；</li>
+          <li>荣获"梦绘圩二，羽动乾坤"校庆杯羽毛球比赛一等奖；</li>
+          <li>荣获汽车商学院"百生讲坛"优秀主讲人称号；</li>
+          <li>荣获院"汽车达人挑战赛"文化知识竞赛二等奖；</li>
+          <li>荣获"三下乡"暑期社会实践院级二等奖；</li>
+          <li>荣获湖北汽车工业学院2024-2025学年第二学期"文明宿舍"。</li>
+        </ul>
+      </div>
+
+      <div class="honor-group">
+        <div class="group-label">🏅 2025–2026</div>
+        <ul class="honor-list">
+          <li>2025 年全国高校商业精英挑战赛国际贸易竞赛跨境电商赛道全国总决赛二等奖</li>
+          <li>第十五届"挑战杯"中国大学生创业计划竞赛院一等奖</li>
+          <li>北京市系统工程学会会员</li>
+          <li>"三下乡"暑期社会实践二等奖</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section id="skills">
+    <h2 class="section-title reveal">技能特长</h2>
+    <div class="skill-grid reveal">
+      <div class="skill-item"><span class="icon">🏆</span>竞赛能力</div>
+      <div class="skill-item"><span class="icon">💡</span>创新创业</div>
+      <div class="skill-item"><span class="icon">📋</span>组织管理</div>
+      <div class="skill-item"><span class="icon">🤝</span>实践能力</div>
+      <div class="skill-item"><span class="icon">🏸</span>羽毛球</div>
+      <div class="skill-item"><span class="icon">🎤</span>演讲表达</div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact">
+    <h2 class="section-title reveal">联系方式</h2>
+    <div class="contact-card reveal">
+      <div class="contact-item">📧 tianshiyu@example.com</div>
+      <div class="contact-item">📱 请私信获取</div>
+      <div class="contact-item" style="margin-top:12px; color:#bbb; font-size:13px;">
+        🌱 保持热爱，奔赴山海
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  &copy; 2025 田时宇 · 少年不惧岁月长
+</footer>
+
+<script>
+  // ===== scroll reveal =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ===== smooth scroll for anchor links =====
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
